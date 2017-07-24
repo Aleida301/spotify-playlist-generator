@@ -1,6 +1,6 @@
 const app = {};
 
-app.getArists = (artist) => $.ajax({
+app.getArists = (lst[lst2[1]]) => $.ajax({
 	url: 'https://api.spotify.com/v1/search',
 	method: 'GET',
 	dataType: 'json',
@@ -25,18 +25,6 @@ app.getAlbumTracks = (id) => $.ajax({
 	dataType: 'json'
 });
 
-app.getAlbums = function(artists) {
-	let albums = artists.map(artist => app.getAristsAlbums(artist.id));
-	$.when(...albums)
-		.then((...albums) => {
-			let albumIds = albums
-				.map(a => a[0].items)
-				.reduce((prev,curr) => [...prev,...curr] ,[])
-				.map(album => app.getAlbumTracks(album.id));
-
-			app.getTracks(albumIds);
-		});
-};
 
 app.getTracks = function(tracks) {
 	$.when(...tracks)
@@ -50,7 +38,7 @@ app.getTracks = function(tracks) {
 };
 
 app.createPlayList = function(songs) {
-	const baseUrl = 'https://embed.spotify.com/?theme=white&uri=spotify:trackset:My Playlist:';
+	const baseUrl = 'https://embed.spotify.com/?theme=white&uri=spotify:trackset:Road Bops:';
 	songs = songs.map(song => song.id).join(',');
 	$('.loader').removeClass('show');
 	$('.playlist').append(`<iframe src="${baseUrl + songs}" height="400"></iframe>`);
@@ -59,9 +47,11 @@ app.createPlayList = function(songs) {
 app.init = function() {
 	$('form').on('submit', function(e) {
 		e.preventDefault();
-		let artists = $('input[type=search]').val();
+		let location = $('input[type=search]').val();
 		$('.loader').addClass('show');
-		artists = artists
+		location = lst[cities]
+		lst[cities]= lst[cityartists]
+		lst[cityartists]= lst[lst2[1]]
 			.split(',')
 			.map(app.getArists);
 		
@@ -74,6 +64,9 @@ app.init = function() {
 	});
 
 }
+
+app.searchcity = (cityName) => $.ajax({
+	url: 'app.apiUrl}/search',
 
 const getDataObject = arr => arr[0].items;
 
